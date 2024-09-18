@@ -9,7 +9,7 @@ Revista::Revista(string nombre,string isbm,string autor,string prestado,string n
 }
 
 void Revista::mostrarInformacion(){
-    MaterialBibliografico:mostrarInformacion();
+    MaterialBibliografico::mostrarInformacion();
     cout<<"Edicion de la revista: "<<numeroEdicion<<endl;
     cout<<"Mes de publicacion: "<<mesPublicacion<<endl;
 }

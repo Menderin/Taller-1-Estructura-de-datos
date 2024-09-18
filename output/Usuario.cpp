@@ -3,10 +3,10 @@
 #include <iostream>
 using namespace std;
 
-Usuario :: Usuario(string nombre, string id){
-    this-> nombre = nombre;
-    this-> id = id;
-}
+//Usuario :: Usuario(string nombre, string id){
+    //this-> nombre = nombre;
+  //  this-> id = id;
+//}
 
 void Usuario:: prestarMaterial(string nombre){
 }

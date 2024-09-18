@@ -9,7 +9,7 @@ Libro::Libro(string nombre,string isbm,string autor,string prestado,string fecha
 };
 
 void Libro::mostrarInformacion(){
-    MaterialBibliografico:mostrarInformacion();
+    MaterialBibliografico::mostrarInformacion();
     cout<<"Fecha de Publicación: "<< fechaPublicacion<<endl;
     cout<<"Resumen del libro: "<<endl;
     cout<<resumen<<endl;
