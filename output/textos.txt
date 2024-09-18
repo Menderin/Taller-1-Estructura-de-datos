@@ -1,0 +1,10 @@
+"La sombra del viento","978-84-08-04568-7","Carlos Ruiz Zafón","N","2001","'La sombra del viento' narra la historia de Daniel Sempere, un joven que descubre un libro en un misterioso cementerio de libros olvidados y se ve envuelto en un enigma literario que cambia su vida para siempre."
+"Cien años de soledad","978-84-375-0608-1","Gabriel García Márquez","N","1967","'Cien años de soledad' cuenta la saga de la familia Buendía en el pueblo ficticio de Macondo, explorando temas de amor, soledad y destino en un contexto mágico y realista."
+"Orgullo y prejuicio","978-84-08-03180-2","Jane Austen","Y","1813","'Orgullo y prejuicio' sigue la vida de Elizabeth Bennet mientras navega por las complejidades de la sociedad inglesa del siglo XIX y busca el verdadero amor y respeto en medio de prejuicios y malentendidos."
+"1984","978-84-7502-658-0","George Orwell","Y","1949","'1984' describe un futuro distópico en el que un régimen totalitario controla todos los aspectos de la vida humana, siguiendo a Winston Smith en su lucha contra la opresión y la vigilancia constante del Partido."
+"El camino de los reyes","978-84-08-13008-0","Brandon Sanderson","Y","2010","'El camino de los reyes' es el primer libro de la serie 'El Archivo de las Tormentas', y sigue las historias entrelazadas de varios personajes en un mundo de magia y guerra, explorando sus destinos y las fuerzas que los moldean."
+National Geographic,978-1-4262-0201-2,National Geographic Society,Y,09,Septiembre
+Time,978-1-4276-7825-1,Time Inc.,Y,34,Agosto
+Scientific American,978-1-4612-4567-8,Scientific American, Inc.,N,10,Octubre
+The Economist,978-1-56908-347-0,The Economist Group,Y,45,Julio
+Vogue,978-0-06-287305-4,Condé Nast,Y,56,Septiembre
