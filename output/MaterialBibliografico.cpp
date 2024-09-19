@@ -1,7 +1,7 @@
 #include "MaterialBibliografico.h"
 #include <iostream>
 
-using namespace std;
+using namespace std;                                                                                                                                                                                                                                 
 
 // Constructor
 MaterialBibliografico::MaterialBibliografico(const string& nombre, const string& isbn, const string& autor, const string& prestado)

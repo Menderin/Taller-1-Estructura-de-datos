@@ -1,5 +1,10 @@
 #include <iostream>
 #include "Lectora.h"
+#include "Biblioteca.h"
+#include "MaterialBibliografico.h"
+#include "Libro.h"
+#include "Revista.h"
+#include "Usuario.h"
 
 using namespace std;
 
@@ -35,6 +40,12 @@ int main() {
     for (Usuario* usuario : usuarios) {delete usuario;}
     for (Libro* libro : libros) {delete libro;}
     for (Revista* revista : revistas) { delete revista; }
+
+    Biblioteca biblioteca;
+    // Crear un libro usando puntero
+    Libro* libro1 = new Libro("El Quijote", "12345", "Miguel de Cervantes", "N", "1605","Un clásico de la literatura.");
+    biblioteca.agregarMaterial(libro1);
+    biblioteca.mostrarMateriales();  // Usar objeto normal biblioteca con "."
 
     return 0;
 }

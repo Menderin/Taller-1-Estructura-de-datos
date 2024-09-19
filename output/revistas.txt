@@ -1,5 +1,5 @@
 National Geographic,978-1-4262-0201-2,National Geographic Society,Y,09,Septiembre
 Time,978-1-4276-7825-1,Time Inc.,Y,34,Agosto
-Scientific American,978-1-4612-4567-8,Scientific American, Inc.,N,10,Octubre
+Scientific American,978-1-4612-4567-8,Scientific American Inc.,N,10,Octubre
 The Economist,978-1-56908-347-0,The Economist Group,Y,45,Julio
 Vogue,978-0-06-287305-4,Condé Nast,Y,56,Septiembre

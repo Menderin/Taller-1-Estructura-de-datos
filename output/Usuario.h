@@ -1,6 +1,6 @@
 #include <string>
 #include "MaterialBibliografico.h"
-
+#pragma once
 class Usuario {
 public:
     // Constructor
