@@ -18,6 +18,7 @@ public:
 
     bool agregarMaterial(MaterialBibliografico* material);  // Método para agregar material
     void mostrarMateriales() const;  // Método para mostrar todos los materiales
+    MaterialBibliografico* buscarMaterial(const std::string& criterio, const std::string& valor) const;  // Método para buscar material
 };
 
 #endif

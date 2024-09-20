@@ -5,8 +5,8 @@ using namespace std;
 
 // Constructor
 Libro::Libro(const string& nombre, const string& isbn, const string& autor,
-    const string& prestado, const string& fechaPublicacion, const string& resumen)
-    : MaterialBibliografico(nombre, isbn, autor, prestado),
+    const string& fechaPublicacion, const string& resumen)
+    : MaterialBibliografico(nombre, isbn, autor),
     fechaPublicacion(fechaPublicacion), resumen(resumen) {}
 
 // Getters y Setters
@@ -31,7 +31,7 @@ void Libro::mostrarInfo() const {
     cout << "Libro: " << getNombre() << "\n"
         << "ISBN: " << getIsbn() << "\n"
         << "Autor: " << getAutor() << "\n"
-        << "Prestado: " << getPrestado() << "\n"
+        << "Prestado: " << (getPrestado() ? "Sí" : "No") << "\n"
         << "Fecha de Publicacion: " << fechaPublicacion << "\n"
         << "Resumen: " << resumen << endl;
 }

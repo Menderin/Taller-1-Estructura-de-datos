@@ -5,8 +5,8 @@ using namespace std;
 
 // Constructor
 Revista::Revista(const string& nombre, const string& isbn, const string& autor,
-    const string& prestado, const string& numeroEdicion, const string& mesPublicacion)
-    : MaterialBibliografico(nombre, isbn, autor, prestado),
+     const string& numeroEdicion, const string& mesPublicacion)
+    : MaterialBibliografico(nombre, isbn, autor),
     numeroEdicion(numeroEdicion), mesPublicacion(mesPublicacion) {}
 
 // Getters y Setters
@@ -31,7 +31,7 @@ void Revista::mostrarInfo() const {
     cout << "Revista: " << getNombre() << "\n"
         << "ISBN: " << getIsbn() << "\n"
         << "Autor: " << getAutor() << "\n"
-        << "Prestado: " << getPrestado() << "\n"
+        << "Prestado: " << (getPrestado() ? "Sí" : "No") << "\n"
         << "Número de Edicion: " << numeroEdicion << "\n"
         << "Mes de Publicacion: " << mesPublicacion << endl;
 }

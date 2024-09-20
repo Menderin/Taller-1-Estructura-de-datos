@@ -41,3 +41,15 @@ void Biblioteca::mostrarMateriales() const {
         std::cout << "----------\n";
     }
 }
+MaterialBibliografico* Biblioteca::buscarMaterial(const std::string& criterio, const std::string& valor) const {
+    for (int i = 0; i < cantidadMateriales; ++i) {
+        
+        if (criterio == "titulo" && recursos[i]->getNombre() == valor) {
+            return recursos[i];  // Se encontró el material por título
+        }
+        if (criterio == "autor" && recursos[i]->getAutor() == valor) {
+            return recursos[i];  // Se encontró el material por autor
+        }
+    }
+    return nullptr;  // No se encontró ningún material que coincida
+}

@@ -4,8 +4,8 @@
 using namespace std;                                                                                                                                                                                                                                 
 
 // Constructor
-MaterialBibliografico::MaterialBibliografico(const string& nombre, const string& isbn, const string& autor, const string& prestado)
-    : nombre(nombre), isbn(isbn), autor(autor), prestado(prestado) {}
+MaterialBibliografico::MaterialBibliografico(const string& nombre, const string& isbn, const string& autor)
+: nombre(nombre), isbn(isbn), autor(autor), prestado(false) {}
 
 // Métodos para acceder a los atributos
 string MaterialBibliografico::getNombre() const {
@@ -20,7 +20,7 @@ string MaterialBibliografico::getAutor() const {
     return autor;
 }
 
-string MaterialBibliografico::getPrestado() const {
+bool MaterialBibliografico::getPrestado() const {
     return prestado;
 }
 
@@ -37,8 +37,26 @@ void MaterialBibliografico::setAutor(const string& autor) {
     this->autor = autor;
 }
 
-void MaterialBibliografico::setPrestado(const string& prestado) {
+void MaterialBibliografico::setPrestado(const bool& prestado) {
     this->prestado = prestado;
+}
+// Métodos para prestar y devolver
+void MaterialBibliografico::prestar() {
+    if (!prestado) {
+        prestado = true;
+        cout << "El material ha sido prestado.\n";
+    } else {
+        cout << "El material ya está prestado.\n";
+    }
+}
+
+void MaterialBibliografico::devolver() {
+    if (prestado) {
+        prestado = false;
+        cout << "El material ha sido devuelto.\n";
+    } else {
+        cout << "El material no estaba prestado.\n";
+    }
 }
 
 // Método para mostrar la información del material
@@ -46,5 +64,5 @@ void MaterialBibliografico::mostrarInfo() const {
     cout << "Nombre: " << nombre << endl;
     cout << "ISBN: " << isbn << endl;
     cout << "Autor: " << autor << endl;
-    cout << "Prestado: " << prestado << endl;
+    cout << "Prestado: " << (getPrestado() ? "Sí" : "No") << "\n";
 }

@@ -31,11 +31,18 @@ void Usuario::setId(const string& id) {
 // Métodos para manejar los materiales prestados
 bool Usuario::prestarMaterial(MaterialBibliografico* material) {
     if (cantidadMateriales < 5) {
-        materialesPrestados[cantidadMateriales] = material;
-        ++cantidadMateriales;
-        return true;
+        if (!material->getPrestado()) {  // Verificar que el material no esté prestado
+            materialesPrestados[cantidadMateriales] = material;
+            material->prestar();  // Cambiar el estado del material a "prestado"
+            ++cantidadMateriales;
+            return true;
+        } else {
+            cout << "El material ya está prestado.\n";
+        }
+    } else {
+        cout << "No puedes prestar más de 5 materiales.\n";
     }
-    return false; // No se puede prestar más materiales si ya se tienen 5
+    return false;
 }
 
 bool Usuario::devolverMaterial(MaterialBibliografico* material) {
@@ -45,6 +52,7 @@ bool Usuario::devolverMaterial(MaterialBibliografico* material) {
             materialesPrestados[i] = materialesPrestados[cantidadMateriales - 1];
             materialesPrestados[cantidadMateriales - 1] = nullptr;
             --cantidadMateriales;
+            material->devolver();  // Cambiar el estado del material a "no prestado"
             return true;
         }
     }
@@ -52,7 +60,6 @@ bool Usuario::devolverMaterial(MaterialBibliografico* material) {
 }
 
 void Usuario::mostrarMaterialesPrestados() const {
-    cout << "Materiales prestados por " << nombre << ":" << endl;
     for (int i = 0; i < cantidadMateriales; ++i) {
         materialesPrestados[i]->mostrarInfo(); // Asume que MaterialBibliografico tiene un método mostrarInfo()
         cout << endl;
