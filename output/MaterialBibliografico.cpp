@@ -1,11 +1,12 @@
 #include "MaterialBibliografico.h"
 #include <iostream>
+#include "Usuario.h"
 
 using namespace std;                                                                                                                                                                                                                                 
 
 // Constructor
 MaterialBibliografico::MaterialBibliografico(const string& nombre, const string& isbn, const string& autor)
-: nombre(nombre), isbn(isbn), autor(autor), prestado(false) {}
+: nombre(nombre), isbn(isbn), autor(autor), prestado(false), usuarioPrestado(nullptr) {}
 
 // Métodos para acceder a los atributos
 string MaterialBibliografico::getNombre() const {
@@ -65,4 +66,13 @@ void MaterialBibliografico::mostrarInfo() const {
     cout << "ISBN: " << isbn << endl;
     cout << "Autor: " << autor << endl;
     cout << "Prestado: " << (getPrestado() ? "Sí" : "No") << "\n";
+}
+// Métodos para acceder a los atributos
+Usuario* MaterialBibliografico::getUsuarioPrestado() const {
+    return usuarioPrestado;  // Devuelve el usuario que tiene el material prestado
+}
+
+// Métodos para modificar los atributos
+void MaterialBibliografico::setUsuarioPrestado(Usuario* usuario) {
+    this->usuarioPrestado = usuario;  // Establece el usuario que tiene el material prestado
 }

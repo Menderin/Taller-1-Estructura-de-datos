@@ -1,6 +1,9 @@
+#pragma once
 #include <string>
 #include "MaterialBibliografico.h"
-#pragma once
+
+class MaterialBibliografico;
+
 class Usuario {
 public:
     // Constructor
@@ -24,3 +27,4 @@ private:
     MaterialBibliografico* materialesPrestados[5]; // Array de punteros a MaterialBibliografico
     int cantidadMateriales; // Contador de materiales actualmente prestados
 };
+

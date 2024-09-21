@@ -13,6 +13,10 @@ using namespace std;
 void menu(Biblioteca&,Usuario&);
 Usuario* accesoUsuario(const vector<Usuario*>& usuarios);  // Cambia esto en la declaración
 string trim(const string& str);   // Cambia el parámetro a 'const string&'
+void menuUsuarios(vector<Usuario*>& usuarios, Lectora& lectora, Biblioteca& biblioteca);
+void buscarUsuario(const vector<Usuario*>& usuarios);
+void crearUsuario(vector<Usuario*>& usuarios, Lectora& lectora);
+void eliminarUsuario(vector<Usuario*>& usuarios, Lectora& lectora);
 
 
 int main() {
@@ -20,8 +24,8 @@ int main() {
     Biblioteca biblioteca;
     cout<<"Usuarios leidos desde 'usuarios.txt': "<<endl;
     vector<Usuario*> usuarios = lectora.leerUsuarios();
-    vector<Libro*> libros = lectora.leerLibros();
-    vector<Revista*> revistas = lectora.leerRevistas();
+    vector<Libro*> libros = lectora.leerLibros(usuarios);
+    vector<Revista*> revistas = lectora.leerRevistas(usuarios);
 
     // Imprimir los datos de los usuarios
     for (Libro* libro : libros) {
@@ -34,7 +38,9 @@ int main() {
     }
     cout << "----------" << endl;
 
-    Usuario* usuario = accesoUsuario(usuarios);  // Verificar si el usuario es válido
+    menuUsuarios(usuarios, lectora, biblioteca);
+
+    /*Usuario* usuario = accesoUsuario(usuarios);  // Verificar si el usuario es válido
 
     if (usuario != nullptr) {
         // Si el acceso es exitoso, mostrar el menú de la biblioteca
@@ -42,6 +48,10 @@ int main() {
     } else {
         cout << "Acceso denegado. Cerrando el programa.\n";
     }
+    */
+
+
+    //Fin del programa
 
     for (Usuario* usuario : usuarios) {delete usuario;}
     for (Libro* libro : libros) {delete libro;}
@@ -50,29 +60,69 @@ int main() {
     return 0;
 }
 
+void menuUsuarios(vector<Usuario*>& usuarios, Lectora& lectora, Biblioteca& biblioteca) {
+    int opcion;
+    bool continuar = true;
+
+    while (continuar) {
+        cout << "\nControl de Usuario:\n";
+        cout << "1. Ingresar a Biblioteca\n";
+        cout << "2. Buscar Usuario\n";
+        cout << "3. Crear Usuario\n";
+        cout << "4. Eliminar Usuario\n";
+        cout << "5. Salir\n";
+        cout << "Seleccione una opción: ";
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1: {
+                Usuario* usuario = accesoUsuario(usuarios);  // Verificar si el usuario es válido
+                if (usuario != nullptr) {
+                    menu(biblioteca, *usuario);  // Ingresar a la biblioteca
+                } else {
+                    cout << "Acceso denegado.\n";
+                }
+                break;
+            }
+            case 2:
+                buscarUsuario(usuarios);
+                break;
+            case 3:
+                crearUsuario(usuarios, lectora);
+                break;
+            case 4:
+                eliminarUsuario(usuarios, lectora);
+                break;
+            case 5:
+                continuar = false;
+                cout << "Saliendo...\n";
+                break;
+            default:
+                cout << "Opción no válida, por favor intente de nuevo.\n";
+                break;
+        }
+    }
+}
+
+
 Usuario* accesoUsuario(const vector<Usuario*>& usuarios) {
     string nombre, id;
 
-    // Pedir nombre e ID al usuario sin usar cin.ignore()
+    // Limpiar el búfer antes de llamar a getline
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
     cout << "Ingrese su nombre: ";
-    getline(cin, nombre);  // Lee el nombre sin alterar el buffer
+    getline(cin, nombre);  // Lee el nombre
     nombre = trim(nombre);  // Limpiar espacios en blanco
 
     cout << "Ingrese su ID: ";
-    getline(cin, id);  // Lee el ID sin alterar el buffer
+    getline(cin, id);  // Lee el ID
     id = trim(id);  // Limpiar espacios en blanco
-
-    // Depuración adicional con delimitadores visibles
-    //cout << "Nombre ingresado (delimitado): >" << nombre << "<" << endl;
-    //cout << "ID ingresado (delimitado): >" << id << "<" << endl;
 
     // Buscar al usuario en la lista
     for (Usuario* usuario : usuarios) {
         string nombreUsuario = trim(usuario->getNombre());  // Limpiar espacios al comparar
         string idUsuario = trim(usuario->getId());  // Limpiar espacios al comparar
-
-        // Depuración adicional con delimitadores visibles
-        //cout << "Verificando usuario: >" << nombreUsuario << "<, ID: >" << idUsuario << "<" << endl;
 
         if (nombreUsuario == nombre && idUsuario == id) {
             cout << "Acceso concedido. Bienvenido, " << nombre << "!\n";
@@ -83,6 +133,56 @@ Usuario* accesoUsuario(const vector<Usuario*>& usuarios) {
     // Si no se encuentra el usuario
     cout << "Acceso denegado. Usuario no encontrado.\n";
     return nullptr;  // Devolver nullptr si no se encuentra al usuario
+}
+
+
+void buscarUsuario(const vector<Usuario*>& usuarios) {
+    string nombre;
+    cout << "Ingrese el nombre del usuario a buscar: ";
+    cin.ignore();
+    getline(cin, nombre);
+
+    for (const Usuario* usuario : usuarios) {
+        if (usuario->getNombre() == nombre) {
+            cout << "Usuario encontrado: " << usuario->getNombre() << ", ID: " << usuario->getId() << endl;
+            return;
+        }
+    }
+    cout << "Usuario no encontrado.\n";
+}
+
+// Función para crear usuario
+void crearUsuario(vector<Usuario*>& usuarios, Lectora& lectora) {
+    string nombre, id;
+    cout << "Ingrese el nombre del nuevo usuario: ";
+    cin.ignore();
+    getline(cin, nombre);
+    cout << "Ingrese el ID del nuevo usuario: ";
+    getline(cin, id);
+
+    Usuario* nuevoUsuario = new Usuario(nombre, id);
+    usuarios.push_back(nuevoUsuario);
+    lectora.guardarUsuarios(usuarios);  // Guardar en el archivo usuarios.txt
+    cout << "Usuario creado con éxito.\n";
+}
+
+// Función para eliminar usuario y borrarlo del txt
+void eliminarUsuario(vector<Usuario*>& usuarios, Lectora& lectora) {
+    string nombre;
+    cout << "Ingrese el nombre del usuario a eliminar: ";
+    cin.ignore();
+    getline(cin, nombre);
+
+    for (auto it = usuarios.begin(); it != usuarios.end(); ++it) {
+        if ((*it)->getNombre() == nombre) {
+            delete *it;
+            usuarios.erase(it);
+            lectora.guardarUsuarios(usuarios);  // Guardar cambios en usuarios.txt
+            cout << "Usuario eliminado con éxito.\n";
+            return;
+        }
+    }
+    cout << "Usuario no encontrado.\n";
 }
 
 

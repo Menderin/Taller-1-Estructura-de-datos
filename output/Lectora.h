@@ -3,7 +3,7 @@
 #include "Usuario.h"
 #include "Libro.h"
 #include "Revista.h"
-
+#pragma once
 using namespace std;
 
 class Lectora {
@@ -13,8 +13,11 @@ public:
 
     // Métodos para leer archivos específicos
     vector<Usuario*> leerUsuarios() const;
-    vector<Libro*> leerLibros() const;
-    vector<Revista*> leerRevistas() const;
+    vector<Libro*> leerLibros(const std::vector<Usuario*>& usuarios) const;
+    vector<Revista*> leerRevistas(const std::vector<Usuario*>& usuarios) const;
+    void guardarUsuarios(const std::vector<Usuario*>& usuarios) const;  // Nueva función para guardar usuarios
+    void guardarLibros(const vector<Libro*>& libros) const;
+    void guardarRevistas(const vector<Revista*>& revistas) const;
 
 private:
     // Nombres de los archivos

@@ -10,6 +10,7 @@ class Libro : public MaterialBibliografico {
 private:
     string fechaPublicacion;
     string resumen;
+    //Usuario* usuarioPrestado;
 
 public:
     // Constructor
