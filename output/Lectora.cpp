@@ -152,7 +152,7 @@ void Lectora::guardarUsuarios(const vector<Usuario*>& usuarios) const {
     archivo.close();
 }
 void Lectora::guardarLibros(const vector<Libro*>& libros) const {
-    ofstream archivo("libros.txt", ios::out | ios::trunc);
+    ofstream archivo(archivoLibros, ios::out | ios::trunc);  // Abrir el archivo en modo truncar para sobrescribir
     if (!archivo.is_open()) {
         cerr << "Error al abrir el archivo de libros para escritura.\n";
         return;
@@ -164,14 +164,15 @@ void Lectora::guardarLibros(const vector<Libro*>& libros) const {
                 << libro->getAutor() << ","
                 << libro->getFechaPublicacion() << ","
                 << libro->getResumen() << ","
-                << (libro->getPrestado() ? "1" : "0") << ","  // Estado de préstamo (1 o 0)
-                << (libro->getPrestado() && libro->getUsuarioPrestado() ? libro->getUsuarioPrestado()->getId() : "0") << "\n";  // ID del usuario si está prestado, o "0" si no está prestado
+                << (libro->getPrestado() ? "1" : "0") << ","
+                << (libro->getPrestado() && libro->getUsuarioPrestado() ? libro->getUsuarioPrestado()->getId() : "0") << "\n";
     }
     archivo.close();
 }
 
+
 void Lectora::guardarRevistas(const vector<Revista*>& revistas) const {
-    ofstream archivo("revistas.txt", ios::out | ios::trunc);
+    ofstream archivo(archivoRevistas, ios::out | ios::trunc);  // Abrir el archivo en modo truncar para sobrescribir
     if (!archivo.is_open()) {
         cerr << "Error al abrir el archivo de revistas para escritura.\n";
         return;
@@ -183,10 +184,10 @@ void Lectora::guardarRevistas(const vector<Revista*>& revistas) const {
                 << revista->getAutor() << ","
                 << revista->getNumeroEdicion() << ","
                 << revista->getMesPublicacion() << ","
-                << (revista->getPrestado() ? "1" : "0") << ","  // Estado de préstamo (1 o 0)
-                << (revista->getPrestado() && revista->getUsuarioPrestado() ? revista->getUsuarioPrestado()->getId() : "0") << "\n";  // ID del usuario si está prestada, o "0" si no
+                << (revista->getPrestado() ? "1" : "0") << ","
+                << (revista->getPrestado() && revista->getUsuarioPrestado() ? revista->getUsuarioPrestado()->getId() : "0") << "\n";
     }
-
     archivo.close();
 }
+
 

@@ -53,3 +53,31 @@ MaterialBibliografico* Biblioteca::buscarMaterial(const std::string& criterio, c
     }
     return nullptr;  // No se encontró ningún material que coincida
 }
+
+vector<Revista*> Biblioteca::getRevistas() const {
+    vector<Revista*> revistas;
+    for (int i = 0; i < cantidadMateriales; ++i) {
+        Revista* revista = dynamic_cast<Revista*>(recursos[i]);
+        if (revista != nullptr) {
+            revistas.push_back(revista);
+        }
+    }
+    return revistas;
+}
+
+#include "Biblioteca.h"
+#include "Libro.h"
+#include <vector>
+
+// Método para obtener todos los libros
+std::vector<Libro*> Biblioteca::getLibros() const {
+    std::vector<Libro*> libros;  // Crear un vector de punteros a libros
+    for (int i = 0; i < cantidadMateriales; ++i) {
+        // Verificar si el material es de tipo Libro
+        Libro* libro = dynamic_cast<Libro*>(recursos[i]);
+        if (libro != nullptr) {
+            libros.push_back(libro);  // Agregar el libro al vector
+        }
+    }
+    return libros;  // Devolver el vector con los libros
+}

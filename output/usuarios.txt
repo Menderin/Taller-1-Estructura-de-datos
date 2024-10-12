@@ -1,2 +1,4 @@
 kevin,123
 victor,321
+Juan,1234
+admin,0000

@@ -1,5 +1,6 @@
-National Geographic,978-1-4262-0201-2,National Geographic Society,09,Septiembre
-Time,978-1-4276-7825-1,Time Inc.,34,Agosto
-Scientific American,978-1-4612-4567-8,Scientific American Inc.,10,Octubre
-The Economist,978-1-56908-347-0,The Economist Group,45,Julio
-Vogue,978-0-06-287305-4,Condé Nast,56,Septiembre
+National Geographic,978-1-4262-0201-2,National Geographic Society,09,Septiembre,0,0
+Time,978-1-4276-7825-1,Time Inc.,34,Agosto,0,0
+Scientific American,978-1-4612-4567-8,Scientific American Inc.,10,Octubre,0,0
+The Economist,978-1-56908-347-0,The Economist Group,45,Julio,0,0
+Vogue,978-0-06-287305-4,Condé Nast,56,Septiembre,0,0
+carlitas return|,4321,carltia,1,10,0,0

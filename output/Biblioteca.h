@@ -6,6 +6,7 @@
 #include "Revista.h"
 #include <string>
 #include <iostream>
+#include <vector>
 
 class Biblioteca {
 private:
@@ -19,6 +20,8 @@ public:
     bool agregarMaterial(MaterialBibliografico* material);  // Método para agregar material
     void mostrarMateriales() const;  // Método para mostrar todos los materiales
     MaterialBibliografico* buscarMaterial(const std::string& criterio, const std::string& valor) const;  // Método para buscar material
+    std::vector<Libro*> getLibros() const;    // Método para obtener todos los libros
+    std::vector<Revista*> getRevistas() const;  // Método para obtener todas las revistas
 };
 
 #endif

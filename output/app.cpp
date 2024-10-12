@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void menu(Biblioteca&,Usuario&);
+void menu(Biblioteca&,Usuario&,Lectora&);
 Usuario* accesoUsuario(const vector<Usuario*>& usuarios);  // Cambia esto en la declaración
 string trim(const string& str);   // Cambia el parámetro a 'const string&'
 void menuUsuarios(vector<Usuario*>& usuarios, Lectora& lectora, Biblioteca& biblioteca);
@@ -23,6 +23,7 @@ int main() {
     Lectora lectora;
     Biblioteca biblioteca;
     cout<<"Usuarios leidos desde 'usuarios.txt': "<<endl;
+    
     vector<Usuario*> usuarios = lectora.leerUsuarios();
     vector<Libro*> libros = lectora.leerLibros(usuarios);
     vector<Revista*> revistas = lectora.leerRevistas(usuarios);
@@ -40,19 +41,7 @@ int main() {
 
     menuUsuarios(usuarios, lectora, biblioteca);
 
-    /*Usuario* usuario = accesoUsuario(usuarios);  // Verificar si el usuario es válido
-
-    if (usuario != nullptr) {
-        // Si el acceso es exitoso, mostrar el menú de la biblioteca
-        menu(biblioteca, *usuario);
-    } else {
-        cout << "Acceso denegado. Cerrando el programa.\n";
-    }
-    */
-
-
-    //Fin del programa
-
+    //liberar memoria
     for (Usuario* usuario : usuarios) {delete usuario;}
     for (Libro* libro : libros) {delete libro;}
     for (Revista* revista : revistas) { delete revista; }
@@ -78,7 +67,7 @@ void menuUsuarios(vector<Usuario*>& usuarios, Lectora& lectora, Biblioteca& bibl
             case 1: {
                 Usuario* usuario = accesoUsuario(usuarios);  // Verificar si el usuario es válido
                 if (usuario != nullptr) {
-                    menu(biblioteca, *usuario);  // Ingresar a la biblioteca
+                    menu(biblioteca, *usuario, lectora);  // Ingresar a la biblioteca
                 } else {
                     cout << "Acceso denegado.\n";
                 }
@@ -185,9 +174,9 @@ void eliminarUsuario(vector<Usuario*>& usuarios, Lectora& lectora) {
     cout << "Usuario no encontrado.\n";
 }
 
+//cambiar infed por pragma once
 
-
-void menu(Biblioteca& biblioteca, Usuario& usuario) {
+void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
 
     int opcion;
     bool continuar = true;
@@ -209,14 +198,13 @@ void menu(Biblioteca& biblioteca, Usuario& usuario) {
 
         switch (opcion) {
             case 1: {
-    // Agregar un libro
+                // Agregar un libro
                 string nombre, isbn, autor, fechaPublicacion, resumen;
 
                 cout << "Ingrese el nombre del libro: ";
                 cin.ignore();
                 getline(cin, nombre);
 
-                // Verifica si el libro ya existe antes de agregarlo
                 if (biblioteca.buscarMaterial("titulo", nombre) != nullptr) {
                     cout << "El libro ya existe en la biblioteca.\n";
                     break;
@@ -233,6 +221,11 @@ void menu(Biblioteca& biblioteca, Usuario& usuario) {
 
                 Libro* nuevoLibro = new Libro(nombre, isbn, autor, fechaPublicacion, resumen);
                 biblioteca.agregarMaterial(nuevoLibro);
+
+                // Guardar el nuevo estado de los libros
+                vector<Libro*> libros = biblioteca.getLibros();  // Obtener la lista actualizada de libros
+                lectora.guardarLibros(libros);  // Sobrescribir el archivo libros.txt
+
                 break;
             }
 
@@ -243,6 +236,12 @@ void menu(Biblioteca& biblioteca, Usuario& usuario) {
                 cout << "Ingrese el nombre de la revista: ";
                 cin.ignore();
                 getline(cin, nombre);
+
+                if (biblioteca.buscarMaterial("titulo", nombre) != nullptr) {
+                    cout << "La revista ya existe en la biblioteca.\n";
+                    break;
+                }
+
                 cout << "Ingrese el ISBN: ";
                 getline(cin, isbn);
                 cout << "Ingrese el autor: ";
@@ -254,6 +253,11 @@ void menu(Biblioteca& biblioteca, Usuario& usuario) {
 
                 Revista* nuevaRevista = new Revista(nombre, isbn, autor, numeroEdicion, mesPublicacion);
                 biblioteca.agregarMaterial(nuevaRevista);
+
+                // Guardar el nuevo estado de las revistas
+                vector<Revista*> revistas = biblioteca.getRevistas();  // Obtener la lista actualizada de revistas
+                lectora.guardarRevistas(revistas);  // Sobrescribir el archivo revistas.txt
+
                 break;
             }
             case 3: {
