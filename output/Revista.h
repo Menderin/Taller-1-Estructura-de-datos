@@ -13,7 +13,7 @@ private:
 
 public:
     // Constructor
-    Revista(const string& nombre, const string& isbn, const string& autor,const string& numeroEdicion, const string& mesPublicacion);
+    Revista(const string& nombre, const string& isbn, const string& autor,const string& numeroEdicion, const string& mesPublicacion,  const std::string& prestado = "No", Usuario* usuario = nullptr);
 
     // Getters y Setters
     string getNumeroEdicion() const;

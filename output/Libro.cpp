@@ -5,9 +5,21 @@ using namespace std;
 
 // Constructor
 Libro::Libro(const string& nombre, const string& isbn, const string& autor,
-    const string& fechaPublicacion, const string& resumen)
-    : MaterialBibliografico(nombre, isbn, autor),
-    fechaPublicacion(fechaPublicacion), resumen(resumen) {}
+    const string& fechaPublicacion, const string& resumen, 
+    const string& prestado, Usuario* usuario)
+    : MaterialBibliografico(nombre, isbn, autor) {
+    
+    this->fechaPublicacion = fechaPublicacion;
+    this->resumen = resumen;
+    
+    if (prestado == "Si") {
+        this->setPrestado(true);
+        this->setUsuarioPrestado(usuario);
+    } else {
+        this->setPrestado(false);
+        this->setUsuarioPrestado(nullptr);
+    }
+}
 
 // Getters y Setters
 string Libro::getFechaPublicacion() const {

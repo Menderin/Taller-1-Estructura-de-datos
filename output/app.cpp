@@ -219,13 +219,11 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 cout << "Ingrese el resumen: ";
                 getline(cin, resumen);
 
-                Libro* nuevoLibro = new Libro(nombre, isbn, autor, fechaPublicacion, resumen);
+                // Agregar un libro
+                Libro* nuevoLibro = new Libro(nombre, isbn, autor, fechaPublicacion, resumen, "No", nullptr);
                 biblioteca.agregarMaterial(nuevoLibro);
-
-                // Guardar el nuevo estado de los libros
-                vector<Libro*> libros = biblioteca.getLibros();  // Obtener la lista actualizada de libros
-                lectora.guardarLibros(libros);  // Sobrescribir el archivo libros.txt
-
+                vector<Libro*> libros = biblioteca.getLibros();
+                lectora.guardarLibros(libros);
                 break;
             }
 
@@ -251,13 +249,11 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 cout << "Ingrese el mes de publicación: ";
                 getline(cin, mesPublicacion);
 
-                Revista* nuevaRevista = new Revista(nombre, isbn, autor, numeroEdicion, mesPublicacion);
+                // Crear una nueva revista con "No" en prestado y "null" en usuario por defecto
+                Revista* nuevaRevista = new Revista(nombre, isbn, autor, numeroEdicion, mesPublicacion, "No", nullptr);
                 biblioteca.agregarMaterial(nuevaRevista);
-
-                // Guardar el nuevo estado de las revistas
-                vector<Revista*> revistas = biblioteca.getRevistas();  // Obtener la lista actualizada de revistas
-                lectora.guardarRevistas(revistas);  // Sobrescribir el archivo revistas.txt
-
+                vector<Revista*> revistas = biblioteca.getRevistas();
+                lectora.guardarRevistas(revistas);
                 break;
             }
             case 3: {
@@ -299,17 +295,27 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 break;
             }
 
-            case 6: {
-                // Prestar material
+            case 6: { // Prestar material
                 string titulo;
                 cout << "Ingrese el título del material que solicita prestamo: ";
                 cin.ignore();
                 getline(cin, titulo);
 
                 MaterialBibliografico* material = biblioteca.buscarMaterial("titulo", titulo);
+
                 if (material && !material->getPrestado()) {
                     if (usuario.prestarMaterial(material)) {
                         cout << "Material prestado con éxito.\n";
+
+                        // Verificar si es un libro o una revista y guardar los cambios
+                        if (Libro* libro = dynamic_cast<Libro*>(material)) {
+                            vector<Libro*> libros = biblioteca.getLibros();
+                            lectora.guardarLibros(libros);  // Actualizar libros.txt
+                        } else if (Revista* revista = dynamic_cast<Revista*>(material)) {
+                            vector<Revista*> revistas = biblioteca.getRevistas();
+                            lectora.guardarRevistas(revistas);  // Actualizar revistas.txt
+                        }
+
                     } else {
                         cout << "No se pudo prestar el material. El usuario ya tiene 5 materiales prestados.\n";
                     }
@@ -318,6 +324,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 }
                 break;
             }
+
 
             case 7: {
                 cout << "Materiales actualmente prestados a " << usuario.getNombre() << ":\n";

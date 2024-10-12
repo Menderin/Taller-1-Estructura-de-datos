@@ -14,7 +14,7 @@ private:
 
 public:
     // Constructor
-    Libro(const string& nombre, const string& isbn, const string& autor, const string& fechaPublicacion, const string& resumen);
+    Libro(const string& nombre, const string& isbn, const string& autor, const string& fechaPublicacion, const string& resumen, const std::string& prestado = "No", Usuario* usuario = nullptr);
 
     // Getters y Setters
     string getFechaPublicacion() const;

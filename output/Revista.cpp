@@ -5,9 +5,20 @@ using namespace std;
 
 // Constructor
 Revista::Revista(const string& nombre, const string& isbn, const string& autor,
-     const string& numeroEdicion, const string& mesPublicacion)
-    : MaterialBibliografico(nombre, isbn, autor),
-    numeroEdicion(numeroEdicion), mesPublicacion(mesPublicacion) {}
+     const string& numeroEdicion, const string& mesPublicacion, 
+     const string& prestado, Usuario* usuario)
+    : MaterialBibliografico(nombre, isbn, autor), 
+      numeroEdicion(numeroEdicion), mesPublicacion(mesPublicacion) {
+    
+    if (prestado == "Si") {
+        this->setPrestado(true);
+        this->setUsuarioPrestado(usuario);
+    } else {
+        this->setPrestado(false);
+        this->setUsuarioPrestado(nullptr);
+    }
+}
+
 
 // Getters y Setters
 string Revista::getNumeroEdicion() const {
