@@ -1,8 +1,9 @@
 # Taller 1 Estructura de datos
+  Taller1
 
 Integrantes: 
-Víctor Jopia Santander; Rut: 21.719.697.3; Paralelo: C2
-Víctor Jopia Santander; Rut: 21.719.697.3; Paralelo: C2
+Nombre: Víctor Fabianno Jopia Santander; Rut: 21.719.697.3; Correo: victor.jopia01@alumnos.ucn.cl; Paralelo: C2
+Nombre: Kevin Joab Silva Ossandón; Rut: 18.923.929-7; Correo: kevin.silva@alumnos.ucn.cl; Paralelo: C1
 
 Explicación del main:
 

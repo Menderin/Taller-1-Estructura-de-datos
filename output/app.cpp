@@ -185,7 +185,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
         cout<<endl;
         cout << "1. Agregar libro\n";
         cout << "2. Agregar revista\n";
-        cout << "3. Buscar recurso\n";
+        cout << "3. Buscar material\n";
         cout << "4. Mostrar todos los materiales\n";
         cout << "5. Mostrar mis materiales pedidos\n";
         cout << "6. Solicitar prestamo de material\n";
