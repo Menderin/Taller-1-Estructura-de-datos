@@ -1,4 +1,6 @@
 #include "Biblioteca.h"
+#include "Libro.h"
+#include <vector>
 
 Biblioteca::Biblioteca() : cantidadMateriales(0) {
     // Inicializamos el array con punteros nulos
@@ -20,19 +22,13 @@ bool Biblioteca::agregarMaterial(MaterialBibliografico* material) {
         std::cerr << "La biblioteca está llena, no se puede agregar más recursos.\n";
         return false;
     }
-
     // Si el material ya está prestado a alguien, asegúrate de agregarlo al usuario correcto
     if (material->getPrestado() && material->getUsuarioPrestado() != nullptr) {
         material->getUsuarioPrestado()->prestarMaterial(material);
     }
-
-    // Agregar el material al array y aumentar el contador
     recursos[cantidadMateriales++] = material;
-    
     return true;
 }
-
-
 
 void Biblioteca::mostrarMateriales() const {
     // Verificar si hay materiales en la biblioteca
@@ -40,7 +36,6 @@ void Biblioteca::mostrarMateriales() const {
         std::cout << "No hay Recursos en la biblioteca.\n";
         return;
     }
-
     // Mostrar la información de todos los materiales
     std::cout << "Recursos en la biblioteca:\n";
     cout<<endl;
@@ -49,6 +44,7 @@ void Biblioteca::mostrarMateriales() const {
         std::cout << "-----------------\n";
     }
 }
+
 MaterialBibliografico* Biblioteca::buscarMaterial(const std::string& criterio, const std::string& valor) const {
     for (int i = 0; i < cantidadMateriales; ++i) {
         
@@ -73,11 +69,6 @@ vector<Revista*> Biblioteca::getRevistas() const {
     return revistas;
 }
 
-#include "Biblioteca.h"
-#include "Libro.h"
-#include <vector>
-
-// Método para obtener todos los libros
 std::vector<Libro*> Biblioteca::getLibros() const {
     std::vector<Libro*> libros;  // Crear un vector de punteros a libros
     for (int i = 0; i < cantidadMateriales; ++i) {
@@ -89,13 +80,14 @@ std::vector<Libro*> Biblioteca::getLibros() const {
     }
     return libros;  // Devolver el vector con los libros
 }
-// Obtener la cantidad de materiales en la biblioteca
+
 int Biblioteca::getCantidadMateriales() const {
+    // Obtener la cantidad de materiales en la biblioteca
     return cantidadMateriales;
 }
 
-// Obtener un material en una posición específica del array
 MaterialBibliografico* Biblioteca::getMaterial(int indice) const {
+    // Obtener un material en una posición específica del array
     if (indice >= 0 && indice < cantidadMateriales) {
         return recursos[indice];
     }

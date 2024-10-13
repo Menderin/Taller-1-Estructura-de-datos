@@ -3,15 +3,13 @@
 #include "MaterialBibliografico.h"
 
 using namespace std;
-
 // Constructor
 Usuario::Usuario(const string& nombre, const string& id) : nombre(nombre), id(id), cantidadMateriales(0) {
-    // Inicializar el array de punteros a nullptr
+    // Inicializar el array con nullptr
     for (int i = 0; i < 5; ++i) {
         materialesPrestados[i] = nullptr;
     }
 }
-
 // Métodos de acceso
 string Usuario::getNombre() const {
     return nombre;
@@ -28,7 +26,6 @@ string Usuario::getId() const {
 void Usuario::setId(const string& id) {
     this->id = id;
 }
-
 // Métodos para manejar los materiales prestados
 bool Usuario::prestarMaterial(MaterialBibliografico* material) {
     // Verificar si el material ya está prestado al usuario
@@ -37,7 +34,6 @@ bool Usuario::prestarMaterial(MaterialBibliografico* material) {
             return false;
         }
     }
-
     if (cantidadMateriales < 5) {  // Límite de 5 materiales
         material->setPrestado(true);  // Marcar el material como prestado
         material->setUsuarioPrestado(this);  // Asignar el usuario al material
@@ -63,14 +59,12 @@ bool Usuario::devolverMaterial(MaterialBibliografico* material) {
     return false;  // El material no estaba en la lista de materiales prestados
 }
 
-
 void Usuario::mostrarMaterialesPrestados() const {
     if (cantidadMateriales == 0) {
-        cout<<endl;
         std::cout << "No tienes materiales prestados.\n";
+        cout << endl;
         return;
     }
-
     cout << "Materiales prestados a " << nombre << ":\n";
     cout << "-----------------------------\n";
     for (int i = 0; i < cantidadMateriales; ++i) {

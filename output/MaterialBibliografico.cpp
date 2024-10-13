@@ -7,7 +7,6 @@ using namespace std;
 // Constructor
 MaterialBibliografico::MaterialBibliografico(const string& nombre, const string& isbn, const string& autor)
 : nombre(nombre), isbn(isbn), autor(autor), prestado(false), usuarioPrestado(nullptr) {}
-
 // Métodos para acceder a los atributos
 string MaterialBibliografico::getNombre() const {
     return nombre;
@@ -24,7 +23,6 @@ string MaterialBibliografico::getAutor() const {
 bool MaterialBibliografico::getPrestado() const {
     return prestado;
 }
-
 // Métodos para modificar los atributos
 void MaterialBibliografico::setNombre(const string& nombre) {
     this->nombre = nombre;

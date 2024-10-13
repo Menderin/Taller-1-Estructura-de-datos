@@ -2,16 +2,12 @@
 #include <iostream>
 
 using namespace std;
-
 // Constructor
 Libro::Libro(const string& nombre, const string& isbn, const string& autor,
-    const string& fechaPublicacion, const string& resumen, 
-    const string& prestado, Usuario* usuario)
-    : MaterialBibliografico(nombre, isbn, autor) {
-    
+    const string& fechaPublicacion, const string& resumen, const string& prestado, Usuario* usuario): MaterialBibliografico(nombre, isbn, autor) 
+    {
     this->fechaPublicacion = fechaPublicacion;
     this->resumen = resumen;
-    
     if (prestado == "Si") {
         this->setPrestado(true);
         this->setUsuarioPrestado(usuario);
@@ -23,7 +19,6 @@ Libro::Libro(const string& nombre, const string& isbn, const string& autor,
 
 // Getters y Setters
 string Libro::getFechaPublicacion() const {
-
     return fechaPublicacion;
 }
 
@@ -39,7 +34,6 @@ void Libro::setResumen(const string& resumen) {
     this->resumen = resumen;
 }
 
-// Sobrescribir el método para mostrar información
 void Libro::mostrarInfo() const {
     cout << "Libro: " << getNombre() << "\n"
         << "ISBN: " << getIsbn() << "\n"

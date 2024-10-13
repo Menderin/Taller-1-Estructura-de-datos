@@ -1,6 +1,4 @@
-#ifndef BIBLIOTECA_H
-#define BIBLIOTECA_H
-
+#pragma once
 #include "MaterialBibliografico.h"
 #include "Libro.h"
 #include "Revista.h"
@@ -14,19 +12,14 @@ private:
     int cantidadMateriales;
 
 public:
-    Biblioteca();  // Constructor
-    ~Biblioteca();  // Destructor para liberar memoria
-
+    Biblioteca();
+    ~Biblioteca();
     bool agregarMaterial(MaterialBibliografico* material);  // Método para agregar material
     void mostrarMateriales() const;  // Método para mostrar todos los materiales
     MaterialBibliografico* buscarMaterial(const std::string& criterio, const std::string& valor) const;  // Método para buscar material
     std::vector<Libro*> getLibros() const;    // Método para obtener todos los libros
     std::vector<Revista*> getRevistas() const;  // Método para obtener todas las revistas
-    
-    int getCantidadMateriales() const;
-
-    // Nuevo método para obtener un material específico
-    MaterialBibliografico* getMaterial(int indice) const;
+    int getCantidadMateriales() const; //retorna numeros de materiales en el array
+    MaterialBibliografico* getMaterial(int indice) const; //get material por indice
 };
 
-#endif
