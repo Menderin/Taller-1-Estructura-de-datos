@@ -143,6 +143,7 @@ void buscarUsuario(const vector<Usuario*>& usuarios) {
 
     for (const Usuario* usuario : usuarios) {
         if (usuario->getNombre() == nombre) {
+            cout << "-----------------------------------\n";
             cout << "Usuario encontrado: " << usuario->getNombre() << ", ID: " << usuario->getId() << endl;
             return;
         }
@@ -348,6 +349,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
 
             case 5: {
                 // Mostrar recursos prestados por el usuario actual
+                cout << endl;
                 usuario.mostrarMaterialesPrestados();
                 break;
             }
@@ -363,6 +365,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 if (material && !material->getPrestado()) {
                     if (usuario.prestarMaterial(material)) {
                         cout << "Material prestado con éxito.\n";
+                        cout << endl;
 
                         // Verificar si es un libro o una revista y guardar los cambios
                         if (Libro* libro = dynamic_cast<Libro*>(material)) {
@@ -375,17 +378,21 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
 
                     } else {
                         cout << "No se pudo prestar el material. El usuario ya tiene 5 materiales prestados.\n";
+                        cout << endl;
                     }
                 } else {
                     cout << "El material no se encuentra disponible o ya está prestado.\n";
+                    std::cout << "----------\n";
+
                 }
                 break;
             }
 
 
-            case 7: {
+           case 7: {
                 cout << "Materiales actualmente prestados a " << usuario.getNombre() << ":\n";
-                 usuario.mostrarMaterialesPrestados();
+                usuario.mostrarMaterialesPrestados();
+                
                 // Devolver material
                 string titulo;
                 cout << "Ingrese el título del material a devolver: ";
@@ -393,13 +400,27 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 getline(cin, titulo);
 
                 MaterialBibliografico* material = biblioteca.buscarMaterial("titulo", titulo);
+                
                 if (material && usuario.devolverMaterial(material)) {
                     cout << "Material devuelto con éxito.\n";
+                    cout << endl;
+
+                    // Actualizar el archivo correspondiente (libros o revistas)
+                    if (Libro* libro = dynamic_cast<Libro*>(material)) {
+                        vector<Libro*> libros = biblioteca.getLibros();  // Obtener todos los libros
+                        lectora.guardarLibros(libros);  // Guardar el estado actualizado de los libros
+                    } else if (Revista* revista = dynamic_cast<Revista*>(material)) {
+                        vector<Revista*> revistas = biblioteca.getRevistas();  // Obtener todas las revistas
+                        lectora.guardarRevistas(revistas);  // Guardar el estado actualizado de las revistas
+                    }
+                    
                 } else {
                     cout << "No se pudo devolver el material.\n";
+                    cout << endl;
                 }
                 break;
             }
+
 
             case 8:
                 // Salir

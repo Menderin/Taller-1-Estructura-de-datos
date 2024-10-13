@@ -63,6 +63,7 @@ bool Usuario::devolverMaterial(MaterialBibliografico* material) {
     return false;  // El material no estaba en la lista de materiales prestados
 }
 
+
 void Usuario::mostrarMaterialesPrestados() const {
     if (cantidadMateriales == 0) {
         cout<<endl;
@@ -70,12 +71,13 @@ void Usuario::mostrarMaterialesPrestados() const {
         return;
     }
 
-    std::cout << "Materiales prestados a " << nombre << ":\n";
+    cout << "Materiales prestados a " << nombre << ":\n";
+    cout << "-----------------------------\n";
     for (int i = 0; i < cantidadMateriales; ++i) {
         if (materialesPrestados[i]) {
             std::cout << "Material " << i + 1 << ":\n";
             materialesPrestados[i]->mostrarInfo();  // Mostrar la información del material
-            std::cout << "----------\n";
+            std::cout << "---------------------\n";
         } else {
             std::cout << "Error: Material en la posición " << i << " es nullptr.\n";
         }

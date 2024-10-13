@@ -6,4 +6,4 @@ El camino de los reyes,978-84-08-13008-0,Brandon Sanderson,2010,'El camino de lo
 ola carlita,1234,carlita,12-12-1212,olca carlita,No,null
 prueba3,321323,yo,hoy,si,Si,0000
 prueba4,010210,yo,12-10-2024,prueba 4 de tipado,No,null
-prueba5,23123,yo,12-10-24,tiapdo,Si,0000
+prueba5,23123,yo,12-10-24,tiapdo,No,null
