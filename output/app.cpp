@@ -66,6 +66,14 @@ void menuUsuarios(vector<Usuario*>& usuarios, Lectora& lectora, Biblioteca& bibl
         cout << "Seleccione una opción: ";
         cin >> opcion;
 
+        // Validar si la entrada es incorrecta
+        if (cin.fail()) {
+            cin.clear();  // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Descartar la entrada inválida
+            cout << "Entrada no válida. Por favor ingrese un número.\n";
+            continue;  // Volver a mostrar el menú
+        }
+
         switch (opcion) {
             case 1: {
                 Usuario* usuario = accesoUsuario(usuarios);  // Verificar si el usuario es válido
@@ -198,6 +206,13 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
         cout<<endl;
         cout << "Seleccione una opción: ";
         cin >> opcion;
+
+        if (cin.fail()) {
+            cin.clear(); // Limpiar el estado de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Descartar la entrada inválida
+            cout << "Entrada no válida. Por favor ingrese un número.\n";
+            continue; // Volver a mostrar el menú
+        }
 
         switch (opcion) {
             case 1: {
