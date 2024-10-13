@@ -8,8 +8,14 @@ Nombre: Kevin Joab Silva Ossandón; Rut: 18.923.929-7; Correo: kevin.silva@alumn
 Para iniciar el programa: 
 
 g++ output/app.cpp output/Biblioteca.cpp output/Lectora.cpp output/Libro.cpp output/MaterialBibliografico.cpp output/Revista.cpp output/Usuario.cpp -o app
-//Entrar a la carpeta
-cd /output/ y luego .\app.exe para iniciar
+
+//Entrar a la carpeta output donde se encuentra el programa
+
+cd /output/ 
+
+y luego 
+
+.\app.exe para iniciar
 
 Explicación del main:
 
