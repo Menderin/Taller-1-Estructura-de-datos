@@ -88,3 +88,15 @@ std::vector<Libro*> Biblioteca::getLibros() const {
     }
     return libros;  // Devolver el vector con los libros
 }
+// Obtener la cantidad de materiales en la biblioteca
+int Biblioteca::getCantidadMateriales() const {
+    return cantidadMateriales;
+}
+
+// Obtener un material en una posición específica del array
+MaterialBibliografico* Biblioteca::getMaterial(int indice) const {
+    if (indice >= 0 && indice < cantidadMateriales) {
+        return recursos[indice];
+    }
+    return nullptr;  // Si el índice está fuera de rango, devuelve nullptr
+}

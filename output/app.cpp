@@ -260,47 +260,59 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 break;
             }
             case 3: {
-                // Nueva opción: Buscar recurso
-                int subopcion;
-                cout << "Buscar recurso por:\n";
-                cout << "1. Título\n";
-                cout << "2. Autor\n";
-                cout << "Seleccione una opción: ";
-                cin >> subopcion;
+    // Nueva opción: Buscar recurso
+    int subopcion;
+    cout << "Buscar recurso por:\n";
+    cout << "1. Título\n";
+    cout << "2. Autor\n";
+    cout << "Seleccione una opción: ";
+    cin >> subopcion;
 
-                if (subopcion == 1) {
-                    // Buscar por título
-                    string titulo;
-                    cout << "Ingrese el título a buscar: ";
-                    cin.ignore();
-                    getline(cin, titulo);
+    if (subopcion == 1) {
+        // Buscar por título
+        string titulo;
+        cout << "Ingrese el título a buscar: ";
+        cin.ignore();
+        getline(cin, titulo);
 
-                    MaterialBibliografico* encontrado = biblioteca.buscarMaterial("titulo", titulo);
-                    if (encontrado) {
-                        cout << "Material encontrado:\n";
-                        encontrado->mostrarInfo();
-                    } else {
-                        cout << "No se encontró material con ese título.\n";
-                    }
-                } else if (subopcion == 2) {
-                    // Buscar por autor
-                    string autorBusqueda;
-                    cout << "Ingrese el autor a buscar: ";
-                    cin.ignore();
-                    getline(cin, autorBusqueda);
-
-                    MaterialBibliografico* encontrado = biblioteca.buscarMaterial("autor", autorBusqueda);
-                    if (encontrado) {
-                        cout << "Material encontrado:\n";
-                        encontrado->mostrarInfo();
-                    } else {
-                        cout << "No se encontró material con ese autor.\n";
-                    }
-                } else {
-                    cout << "Opción no válida.\n";
-                }
-                break;
+        bool encontrado = false;
+        for (int i = 0; i < biblioteca.getCantidadMateriales(); ++i) {
+            MaterialBibliografico* material = biblioteca.getMaterial(i);
+            if (material->getNombre() == titulo) {
+                material->mostrarInfo();  // Mostrar la información del material encontrado
+                encontrado = true;
             }
+        }
+
+        if (!encontrado) {
+            cout << "No se encontró material con ese título.\n";
+        }
+
+        } else if (subopcion == 2) {
+            // Buscar por autor
+            string autorBusqueda;
+            cout << "Ingrese el autor a buscar: ";
+            cin.ignore();
+            getline(cin, autorBusqueda);
+
+            bool encontrado = false;
+            for (int i = 0; i < biblioteca.getCantidadMateriales(); ++i) {
+                MaterialBibliografico* material = biblioteca.getMaterial(i);
+                if (material->getAutor() == autorBusqueda) {
+                    material->mostrarInfo();  // Mostrar la información del material encontrado
+                    encontrado = true;
+                }
+            }
+
+            if (!encontrado) {
+                cout << "No se encontró material con ese autor.\n";
+            }
+        } else {
+            cout << "Opción no válida.\n";
+        }
+        break;
+    }
+
 
             case 4: {
                 // Mostrar todos los materiales solo una vez
