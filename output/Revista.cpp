@@ -38,6 +38,6 @@ void Revista::mostrarInfo() const {
         << "ISBN: " << getIsbn() << "\n"
         << "Autor: " << getAutor() << "\n"
         << "Prestado: " << (getPrestado() ? "Sí" : "No") << "\n"
-        << "Número de Edicion: " << numeroEdicion << "\n"
+        << "Numero de Edicion: " << numeroEdicion << "\n"
         << "Mes de Publicacion: " << mesPublicacion << endl;
 }

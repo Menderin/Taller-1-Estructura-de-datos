@@ -57,7 +57,7 @@ void menuUsuarios(vector<Usuario*>& usuarios, Lectora& lectora, Biblioteca& bibl
         cout << "4. Eliminar Usuario\n";
         cout << "5. Salir\n";
         cout << endl;
-        cout << "Seleccione una opción: ";
+        cout << "Seleccione una opcion: ";
         cin >> opcion;
 
         // Validar si la entrada es incorrecta
@@ -73,8 +73,6 @@ void menuUsuarios(vector<Usuario*>& usuarios, Lectora& lectora, Biblioteca& bibl
                 Usuario* usuario = accesoUsuario(usuarios);  // Verificar si el usuario es válido
                 if (usuario != nullptr) {
                     menu(biblioteca, *usuario, lectora);  // Ingresar a la biblioteca
-                } else {
-                    cout << "Acceso denegado.\n";
                 }
                 break;
             }
@@ -168,7 +166,7 @@ void eliminarUsuario(vector<Usuario*>& usuarios, Lectora& lectora) {
             delete *it;
             usuarios.erase(it);
             lectora.guardarUsuarios(usuarios);  // Guardar cambios en usuarios.txt
-            cout << "Usuario eliminado con éxito.\n";
+            cout << "Usuario eliminado con exito.\n";
             return;
         }
     }
@@ -192,13 +190,13 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
         cout << "7. Devolver material\n";
         cout << "8. Salir\n";
         cout<<endl;
-        cout << "Seleccione una opción: ";
+        cout << "Seleccione una opcion: ";
         cin >> opcion;
 
         if (cin.fail()) {
             cin.clear(); 
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-            cout << "Entrada no válida. Por favor ingrese un número.\n";
+            cout << "Entrada no valida. Por favor ingrese un numero.\n";
             continue; // Volver a mostrar el menú
         }
 
@@ -217,7 +215,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 getline(cin, isbn);
                 cout << "Ingrese el autor: ";
                 getline(cin, autor);
-                cout << "Ingrese la fecha de publicación: ";
+                cout << "Ingrese la fecha de publicacion: ";
                 getline(cin, fechaPublicacion);
                 cout << "Ingrese el resumen: ";
                 getline(cin, resumen);
@@ -227,7 +225,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 vector<Libro*> libros = biblioteca.getLibros();
                 lectora.guardarLibros(libros);
                 cout<<endl;
-                cout<< "Libro añadido correctamente."<<endl;
+                cout<< "Libro agregado correctamente."<<endl;
                 cout<<endl;
                 break;
             }
@@ -247,9 +245,9 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 getline(cin, isbn);
                 cout << "Ingrese el autor: ";
                 getline(cin, autor);
-                cout << "Ingrese el número de edición: ";
+                cout << "Ingrese el numero de edicion: ";
                 getline(cin, numeroEdicion);
-                cout << "Ingrese el mes de publicación: ";
+                cout << "Ingrese el mes de publicacion: ";
                 getline(cin, mesPublicacion);
                 
                 Revista* nuevaRevista = new Revista(nombre, isbn, autor, numeroEdicion, mesPublicacion, "No", nullptr);
@@ -257,7 +255,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 vector<Revista*> revistas = biblioteca.getRevistas();
                 lectora.guardarRevistas(revistas);
                 cout<<endl;
-                cout<< "Revista añadida correctamente."<<endl;
+                cout<< "Revista agregada correctamente."<<endl;
                 cout<<endl;
                 break;
             }
@@ -267,14 +265,14 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
             cout << "Buscar recurso por:\n";
             cout << "1. Título\n";
             cout << "2. Autor\n";
-            cout << "Seleccione una opción: ";
+            cout << "Seleccione una opcion: ";
             cin >> subopcion;
             cout<<endl;
 
             if (subopcion == 1) {
                 // Buscar por título
                 string titulo;
-                cout << "Ingrese el título a buscar: ";
+                cout << "Ingrese el titulo a buscar: ";
                 cin.ignore();
                 getline(cin, titulo);
                 cout<<endl;
@@ -288,7 +286,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                     }
                 }
                 if (!encontrado) {
-                    cout << "No se encontró material con ese título.\n";
+                    cout << "No se encontro material con ese título.\n";
                 }
 
                 } else if (subopcion == 2) {
@@ -308,10 +306,10 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                         }
                     }
                     if (!encontrado) {
-                        cout << "No se encontró material con ese autor.\n";
+                        cout << "No se encontro material con ese autor.\n";
                     }
                 } else {
-                    cout << "Opción no válida.\n";
+                    cout << "Opcion no valida.\n";
                 }
                 break;
             }
@@ -329,7 +327,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
             }
             case 6: { // Prestar material al usuario actual
                 string titulo;
-                cout << "Ingrese el título del material que solicita prestamo: ";
+                cout << "Ingrese el titulo del material que solicita prestamo: ";
                 cin.ignore();
                 getline(cin, titulo);
 
@@ -337,7 +335,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
 
                 if (material && !material->getPrestado()) {
                     if (usuario.prestarMaterial(material)) {
-                        cout << "Material prestado con éxito.\n";
+                        cout << "Material prestado con exito.\n";
                         cout << endl;
                         // Verificar si es un libro o una revista y guardar los cambios
                         if (Libro* libro = dynamic_cast<Libro*>(material)) {
@@ -353,7 +351,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                         cout << endl;
                     }
                 } else {
-                    cout << "El material no se encuentra disponible o ya está prestado.\n";
+                    cout << "El material no se encuentra disponible o ya esta prestado.\n";
                     cout << endl;
                 }
                 break;
@@ -364,14 +362,14 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
 
                 // Devolver material
                 string titulo;
-                cout << "Ingrese el título del material a devolver: ";
+                cout << "Ingrese el titulo del material a devolver: ";
                 cin.ignore();
                 getline(cin, titulo);
 
                 MaterialBibliografico* material = biblioteca.buscarMaterial("titulo", titulo);
                 
                 if (material && usuario.devolverMaterial(material)) {
-                    cout << "Material devuelto con éxito.\n";
+                    cout << "Material devuelto con exito.\n";
                     cout << endl;
 
                     // Actualizar el archivo correspondiente (libros o revistas)
@@ -395,7 +393,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 break;
 
             default:
-                cout << "Opción no válida, por favor intente de nuevo.\n";
+                cout << "Opcion no valida, por favor intente de nuevo.\n";
                 break;
         }
     }
