@@ -3,5 +3,4 @@ Cien años de soledad,978-84-375-0608-1,Gabriel García Márquez,1967,'Cien año
 Orgullo y prejuicio,978-84-08-03180-2,Jane Austen,1813,'Orgullo y prejuicio' sigue la vida de Elizabeth Bennet mientras navega por las complejidades de la sociedad inglesa del siglo XIX y busca el verdadero amor y respeto en medio de prejuicios y malentendidos.,No,null
 1984,978-84-7502-658-0,George Orwell,1949,'1984' describe un futuro distópico en el que un régimen totalitario controla todos los aspectos de la vida humana,No,null
 El camino de los reyes,978-84-08-13008-0,Brandon Sanderson,2010,'El camino de los reyes' es el primer libro de la serie 'El Archivo de las Tormentas',No,null
-,,,,,No,null
 Prueba pre-Final,1020,Victor,13-10-2024,Prueba de correcion de tildes,No,null

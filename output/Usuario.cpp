@@ -78,6 +78,17 @@ void Usuario::mostrarMaterialesPrestados() const {
     }
 }
 
+void Usuario::devolverTodosLosMateriales() {
+    for (int i = 0; i < cantidadMateriales; ++i) {
+        if (materialesPrestados[i]) {
+            materialesPrestados[i]->setPrestado(false);   
+            materialesPrestados[i]->setUsuarioPrestado(nullptr);  
+            materialesPrestados[i] = nullptr;  
+        }
+    }
+    cantidadMateriales = 0;
+}
+
 
 
 

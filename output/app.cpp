@@ -16,7 +16,7 @@ string trim(const string& str);   // Cambia el parámetro a 'const string&'
 void menuUsuarios(vector<Usuario*>& usuarios, Lectora& lectora, Biblioteca& biblioteca);
 void buscarUsuario(const vector<Usuario*>& usuarios);
 void crearUsuario(vector<Usuario*>& usuarios, Lectora& lectora);
-void eliminarUsuario(vector<Usuario*>& usuarios, Lectora& lectora);
+void eliminarUsuario(vector<Usuario*>& usuarios, Lectora& lectora,Biblioteca& biblioteca);
 
 int main() {
     Lectora lectora;
@@ -83,7 +83,7 @@ void menuUsuarios(vector<Usuario*>& usuarios, Lectora& lectora, Biblioteca& bibl
                 crearUsuario(usuarios, lectora);
                 break;
             case 4:
-                eliminarUsuario(usuarios, lectora);
+                eliminarUsuario(usuarios, lectora, biblioteca);
                 break;
             case 5:
                 continuar = false;
@@ -101,11 +101,11 @@ Usuario* accesoUsuario(const vector<Usuario*>& usuarios) {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     cout << "Ingrese su nombre: ";
-    getline(cin, nombre);  // Lee el nombre
-    nombre = trim(nombre);  // Limpiar espacios en blanco
+    getline(cin, nombre);  
+    nombre = trim(nombre);  
 
     cout << "Ingrese su ID: ";
-    getline(cin, id);  // Lee el ID
+    getline(cin, id);  
     id = trim(id);
 
     // Buscar al usuario en la lista
@@ -155,18 +155,28 @@ void crearUsuario(vector<Usuario*>& usuarios, Lectora& lectora) {
     cout << "Usuario creado con éxito.\n";
 }
 // Función para eliminar usuario y borrarlo del txt
-void eliminarUsuario(vector<Usuario*>& usuarios, Lectora& lectora) {
+void eliminarUsuario(std::vector<Usuario*>& usuarios, Lectora& lectora,Biblioteca& biblioteca) {
     string nombre;
     cout << "Ingrese el nombre del usuario a eliminar: ";
-    cin.ignore();
+    cin.ignore();  // Para evitar problemas con el buffer
     getline(cin, nombre);
 
     for (auto it = usuarios.begin(); it != usuarios.end(); ++it) {
         if ((*it)->getNombre() == nombre) {
-            delete *it;
-            usuarios.erase(it);
-            lectora.guardarUsuarios(usuarios);  // Guardar cambios en usuarios.txt
-            cout << "Usuario eliminado con exito.\n";
+            // Usuario encontrado
+            Usuario* usuario = *it;
+            usuario->devolverTodosLosMateriales();
+
+            delete usuario; 
+            usuarios.erase(it);  
+
+            // Actualizar los archivos txt
+            lectora.guardarUsuarios(usuarios);  
+            vector<Libro*> libros = biblioteca.getLibros();
+            lectora.guardarLibros(libros);  
+            vector<Revista*> revistas = biblioteca.getRevistas();
+            lectora.guardarRevistas(revistas);
+            cout << "Usuario eliminado correctamente y materiales devueltos.\n";
             return;
         }
     }

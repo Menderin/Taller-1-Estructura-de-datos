@@ -22,5 +22,6 @@ class Usuario {
         bool prestarMaterial(MaterialBibliografico* material);
         bool devolverMaterial(MaterialBibliografico* material);
         void mostrarMaterialesPrestados() const;
+        void devolverTodosLosMateriales();
 };
 
