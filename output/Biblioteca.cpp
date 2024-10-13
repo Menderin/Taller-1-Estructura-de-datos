@@ -21,11 +21,18 @@ bool Biblioteca::agregarMaterial(MaterialBibliografico* material) {
         return false;
     }
 
+    // Si el material ya está prestado a alguien, asegúrate de agregarlo al usuario correcto
+    if (material->getPrestado() && material->getUsuarioPrestado() != nullptr) {
+        material->getUsuarioPrestado()->prestarMaterial(material);
+    }
+
     // Agregar el material al array y aumentar el contador
     recursos[cantidadMateriales++] = material;
     std::cout << "Material agregado correctamente.\n";
     return true;
 }
+
+
 
 void Biblioteca::mostrarMateriales() const {
     // Verificar si hay materiales en la biblioteca

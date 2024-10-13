@@ -65,30 +65,39 @@ vector<Libro*> Lectora::leerLibros(const vector<Usuario*>& usuarios) const {
         stringstream ss(linea);
         string nombre, isbn, autor, fechaPublicacion, resumen, prestado, idUsuario;
 
+        // Leer los campos desde la línea
         getline(ss, nombre, ',');
         getline(ss, isbn, ',');
         getline(ss, autor, ',');
         getline(ss, fechaPublicacion, ',');
         getline(ss, resumen, ',');
         getline(ss, prestado, ',');  // Si o No
-        getline(ss, idUsuario);      // null si no está prestado
+        getline(ss, idUsuario);      // ID del usuario o "null" si no está prestado
 
-        Usuario* usuarioPrestado = nullptr;
-        if (prestado == "Si") {
+        cout << "Leyendo libro: " << nombre << ", Prestado: " << prestado << ", ID Usuario: " << idUsuario << endl;
+
+        // Crear el libro
+        Libro* libro = new Libro(nombre, isbn, autor, fechaPublicacion, resumen, prestado);
+
+        // Si el ID de usuario no es "null", buscar al usuario y asignarle el libro prestado
+        if (prestado == "Si" && idUsuario != "null") {
             for (Usuario* usuario : usuarios) {
                 if (usuario->getId() == idUsuario) {
-                    usuarioPrestado = usuario;
+                    cout << "Asignando el libro " << nombre << " al usuario " << usuario->getNombre() << endl;
+                    usuario->prestarMaterial(libro);  // Añadir el libro al array de materiales del usuario
+                    libro->setUsuarioPrestado(usuario);  // Asignar el usuario prestado al libro
+                    libro->setPrestado(true);  // Marcar el libro como prestado
                     break;
                 }
             }
         }
 
-        // Crear el libro con los datos leídos, prestado y el usuario correspondiente
-        Libro* libro = new Libro(nombre, isbn, autor, fechaPublicacion, resumen, prestado, usuarioPrestado);
-        libros.push_back(libro);
+        libros.push_back(libro);  // Añadir el libro a la lista general
     }
+
     return libros;
 }
+
 
 vector<Revista*> Lectora::leerRevistas(const vector<Usuario*>& usuarios) const {
     vector<Revista*> revistas;
@@ -98,30 +107,42 @@ vector<Revista*> Lectora::leerRevistas(const vector<Usuario*>& usuarios) const {
         stringstream ss(linea);
         string nombre, isbn, autor, numeroEdicion, mesPublicacion, prestado, idUsuario;
 
+        // Leer los campos desde la línea
         getline(ss, nombre, ',');
         getline(ss, isbn, ',');
         getline(ss, autor, ',');
         getline(ss, numeroEdicion, ',');
         getline(ss, mesPublicacion, ',');
         getline(ss, prestado, ',');  // Si o No
-        getline(ss, idUsuario);      // null si no tiene dueño
+        getline(ss, idUsuario);      // ID del usuario o "null" si no está prestada
 
-        Usuario* usuarioPrestado = nullptr;
-        if (prestado == "Si") {
+        // Mensaje de depuración para asegurarnos de que los datos se leen correctamente
+        cout << "Leyendo revista: " << nombre << ", Prestado: " << prestado << ", ID Usuario: " << idUsuario << endl;
+
+        // Crear la revista
+        Revista* revista = new Revista(nombre, isbn, autor, numeroEdicion, mesPublicacion, prestado);
+
+        // Si el ID de usuario no es "null", buscar al usuario y asignarle la revista prestada
+        if (prestado == "Si" && idUsuario != "null") {
             for (Usuario* usuario : usuarios) {
                 if (usuario->getId() == idUsuario) {
-                    usuarioPrestado = usuario;
+                    cout << "Asignando la revista " << nombre << " al usuario " << usuario->getNombre() << endl;
+                    usuario->prestarMaterial(revista);  // Añadir la revista al array de materiales del usuario
+                    revista->setUsuarioPrestado(usuario);  // Asignar el usuario prestado a la revista
+                    revista->setPrestado(true);  // Marcar la revista como prestada
                     break;
                 }
             }
         }
 
-        Revista* revista = new Revista(nombre, isbn, autor, numeroEdicion, mesPublicacion, prestado, usuarioPrestado);
-        revistas.push_back(revista);
+        revistas.push_back(revista);  // Añadir la revista a la lista general
     }
 
     return revistas;
 }
+
+
+
 
 void Lectora::guardarUsuarios(const vector<Usuario*>& usuarios) const {
     ofstream archivo("usuarios.txt");
@@ -138,16 +159,13 @@ void Lectora::guardarUsuarios(const vector<Usuario*>& usuarios) const {
     archivo.close();
 }
 void Lectora::guardarLibros(const vector<Libro*>& libros) const {
-    // Abrir el archivo libros.txt en modo de escritura y truncar (eliminar contenido anterior)
     ofstream archivo("libros.txt", ios::out | ios::trunc);
 
-    // Verificar si el archivo se abrió correctamente
     if (!archivo.is_open()) {
         cerr << "Error al abrir el archivo libros.txt para escritura." << endl;
         return;
     }
 
-    // Guardar los datos de cada libro en el archivo
     for (const Libro* libro : libros) {
         archivo << libro->getNombre() << ","
                 << libro->getIsbn() << ","
@@ -159,37 +177,32 @@ void Lectora::guardarLibros(const vector<Libro*>& libros) const {
                 << endl;
     }
 
-    // Cerrar el archivo después de escribir
     archivo.close();
-    cout << "Libros guardados correctamente." << endl;  // Mensaje opcional para verificar que se guardaron correctamente
 }
 
+
 void Lectora::guardarRevistas(const vector<Revista*>& revistas) const {
-    // Abrir el archivo revistas.txt en modo de escritura y truncar (eliminar contenido anterior)
     ofstream archivo("revistas.txt", ios::out | ios::trunc);
 
-    // Verificar si el archivo se abrió correctamente
     if (!archivo.is_open()) {
         cerr << "Error al abrir el archivo revistas.txt para escritura." << endl;
         return;
     }
 
-    // Guardar los datos de cada revista en el archivo
     for (const Revista* revista : revistas) {
         archivo << revista->getNombre() << ","
                 << revista->getIsbn() << ","
                 << revista->getAutor() << ","
                 << revista->getNumeroEdicion() << ","
                 << revista->getMesPublicacion() << ","
-                << (revista->getPrestado() ? "Si" : "No") << ","
-                << (revista->getPrestado() ? revista->getUsuarioPrestado()->getId() : "null")
+                << (revista->getPrestado() ? "Si" : "No") << ","  // Indicar si está prestada
+                << (revista->getPrestado() ? revista->getUsuarioPrestado()->getId() : "null")  // ID del usuario o "null"
                 << endl;
     }
 
-    // Cerrar el archivo después de escribir
     archivo.close();
-    cout << "Revistas guardadas correctamente." << endl;  // Mensaje opcional
 }
+
 
 
 

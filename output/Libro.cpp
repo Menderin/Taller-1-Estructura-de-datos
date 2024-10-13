@@ -23,6 +23,7 @@ Libro::Libro(const string& nombre, const string& isbn, const string& autor,
 
 // Getters y Setters
 string Libro::getFechaPublicacion() const {
+
     return fechaPublicacion;
 }
 

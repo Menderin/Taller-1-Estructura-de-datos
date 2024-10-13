@@ -22,32 +22,35 @@ void eliminarUsuario(vector<Usuario*>& usuarios, Lectora& lectora);
 int main() {
     Lectora lectora;
     Biblioteca biblioteca;
-    cout<<"Usuarios leidos desde 'usuarios.txt': "<<endl;
+    cout << "Usuarios leidos desde 'usuarios.txt': " << endl;
     
+    // Leer usuarios
     vector<Usuario*> usuarios = lectora.leerUsuarios();
+    
+    // Leer libros y asociar los que estén prestados
     vector<Libro*> libros = lectora.leerLibros(usuarios);
-    vector<Revista*> revistas = lectora.leerRevistas(usuarios);
-
-    // Imprimir los datos de los usuarios
     for (Libro* libro : libros) {
-        biblioteca.agregarMaterial(libro);
+        biblioteca.agregarMaterial(libro);  // Agregar cada libro a la biblioteca
     }
 
-    // Agregar las revistas leídas a la biblioteca
+    // Leer revistas y asociar las que estén prestadas
+    vector<Revista*> revistas = lectora.leerRevistas(usuarios);
     for (Revista* revista : revistas) {
-        biblioteca.agregarMaterial(revista);
+        biblioteca.agregarMaterial(revista);  // Agregar cada revista a la biblioteca
     }
+
     cout << "----------" << endl;
 
-    menuUsuarios(usuarios, lectora, biblioteca);
+    menuUsuarios(usuarios, lectora, biblioteca);  // Iniciar el menú principal
 
-    //liberar memoria
-    for (Usuario* usuario : usuarios) {delete usuario;}
-    for (Libro* libro : libros) {delete libro;}
+    // Liberar memoria
+    for (Usuario* usuario : usuarios) { delete usuario; }
+    for (Libro* libro : libros) { delete libro; }
     for (Revista* revista : revistas) { delete revista; }
 
     return 0;
 }
+
 
 void menuUsuarios(vector<Usuario*>& usuarios, Lectora& lectora, Biblioteca& biblioteca) {
     int opcion;
@@ -307,7 +310,6 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
 
             case 5: {
                 // Mostrar recursos prestados por el usuario actual
-                cout << "Recursos prestados a " << usuario.getNombre() << ":\n";
                 usuario.mostrarMaterialesPrestados();
                 break;
             }

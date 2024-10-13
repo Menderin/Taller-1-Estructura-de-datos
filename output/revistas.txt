@@ -3,5 +3,5 @@ Time,978-1-4276-7825-1,Time Inc.,34,Agosto,No,null
 Scientific American,978-1-4612-4567-8,Scientific American Inc.,10,Octubre,No,null
 The Economist,978-1-56908-347-0,The Economist Group,45,Julio,No,null
 Vogue,978-0-06-287305-4,Condé Nast,56,Septiembre,No,null
-carlitas return|,4321,carltia,1,10,No,null
-prueba,12345,yo,1,1,No,null
+carlitas return|,4321,carltia,1,10,Si,123
+prueba,12345,yo,1,1,Si,0000

@@ -31,15 +31,27 @@ void Usuario::setId(const string& id) {
 
 // Métodos para manejar los materiales prestados
 bool Usuario::prestarMaterial(MaterialBibliografico* material) {
-    if (cantidadMateriales < 5 && !material->getPrestado()) {
+    // Verificar si el material ya está prestado al usuario
+    for (int i = 0; i < cantidadMateriales; ++i) {
+        if (materialesPrestados[i] == material) {
+            std::cout << "Material ya prestado al usuario.\n";
+            return false;
+        }
+    }
+
+    if (cantidadMateriales < 5) {  // Límite de 5 materiales
         material->setPrestado(true);  // Marcar el material como prestado
         material->setUsuarioPrestado(this);  // Asignar el usuario al material
-        materialesPrestados[cantidadMateriales] = material;
+        materialesPrestados[cantidadMateriales] = material;  // Agregar al array
         ++cantidadMateriales;
+        std::cout << "Material " << material->getNombre() << " prestado a " << nombre << endl;
         return true;
     }
-    return false;  // No se puede prestar más materiales si ya se tienen 5 o está prestado
+    return false;  // No se puede prestar más materiales
 }
+
+
+
 
 
 bool Usuario::devolverMaterial(MaterialBibliografico* material) {
@@ -59,8 +71,22 @@ bool Usuario::devolverMaterial(MaterialBibliografico* material) {
 
 
 void Usuario::mostrarMaterialesPrestados() const {
+    if (cantidadMateriales == 0) {
+        std::cout << "No tienes materiales prestados.\n";
+        return;
+    }
+
+    std::cout << "Materiales prestados a " << nombre << ":\n";
     for (int i = 0; i < cantidadMateriales; ++i) {
-        materialesPrestados[i]->mostrarInfo(); // Asume que MaterialBibliografico tiene un método mostrarInfo()
-        cout << endl;
+        if (materialesPrestados[i]) {
+            std::cout << "Material " << i + 1 << ":\n";
+            materialesPrestados[i]->mostrarInfo();  // Mostrar la información del material
+        } else {
+            std::cout << "Error: Material en la posición " << i << " es nullptr.\n";
+        }
     }
 }
+
+
+
+
