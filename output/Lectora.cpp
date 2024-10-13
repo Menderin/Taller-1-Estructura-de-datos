@@ -48,7 +48,7 @@ vector<Usuario*> Lectora::leerUsuarios() const {
 
         if (!nombre.empty() && !id.empty()) {
             // Crear una instancia de Usuario y agregar al vector
-            cout << "Usuario leído: " << nombre << ", ID: " << id << endl;  // Mensaje de depuración
+            
             Usuario* usuario = new Usuario(nombre, id);
             usuarios.push_back(usuario);
         }
@@ -74,7 +74,7 @@ vector<Libro*> Lectora::leerLibros(const vector<Usuario*>& usuarios) const {
         getline(ss, prestado, ',');  // Si o No
         getline(ss, idUsuario);      // ID del usuario o "null" si no está prestado
 
-        cout << "Leyendo libro: " << nombre << ", Prestado: " << prestado << ", ID Usuario: " << idUsuario << endl;
+    
 
         // Crear el libro
         Libro* libro = new Libro(nombre, isbn, autor, fechaPublicacion, resumen, prestado);
@@ -83,7 +83,7 @@ vector<Libro*> Lectora::leerLibros(const vector<Usuario*>& usuarios) const {
         if (prestado == "Si" && idUsuario != "null") {
             for (Usuario* usuario : usuarios) {
                 if (usuario->getId() == idUsuario) {
-                    cout << "Asignando el libro " << nombre << " al usuario " << usuario->getNombre() << endl;
+                    
                     usuario->prestarMaterial(libro);  // Añadir el libro al array de materiales del usuario
                     libro->setUsuarioPrestado(usuario);  // Asignar el usuario prestado al libro
                     libro->setPrestado(true);  // Marcar el libro como prestado
@@ -117,7 +117,7 @@ vector<Revista*> Lectora::leerRevistas(const vector<Usuario*>& usuarios) const {
         getline(ss, idUsuario);      // ID del usuario o "null" si no está prestada
 
         // Mensaje de depuración para asegurarnos de que los datos se leen correctamente
-        cout << "Leyendo revista: " << nombre << ", Prestado: " << prestado << ", ID Usuario: " << idUsuario << endl;
+        
 
         // Crear la revista
         Revista* revista = new Revista(nombre, isbn, autor, numeroEdicion, mesPublicacion, prestado);
@@ -126,7 +126,7 @@ vector<Revista*> Lectora::leerRevistas(const vector<Usuario*>& usuarios) const {
         if (prestado == "Si" && idUsuario != "null") {
             for (Usuario* usuario : usuarios) {
                 if (usuario->getId() == idUsuario) {
-                    cout << "Asignando la revista " << nombre << " al usuario " << usuario->getNombre() << endl;
+                    
                     usuario->prestarMaterial(revista);  // Añadir la revista al array de materiales del usuario
                     revista->setUsuarioPrestado(usuario);  // Asignar el usuario prestado a la revista
                     revista->setPrestado(true);  // Marcar la revista como prestada

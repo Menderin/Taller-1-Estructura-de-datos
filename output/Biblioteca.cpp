@@ -17,7 +17,7 @@ Biblioteca::~Biblioteca() {
 bool Biblioteca::agregarMaterial(MaterialBibliografico* material) {
     // Verificar si hay espacio en el array
     if (cantidadMateriales >= 100) {
-        std::cerr << "La biblioteca está llena, no se puede agregar más materiales.\n";
+        std::cerr << "La biblioteca está llena, no se puede agregar más recursos.\n";
         return false;
     }
 
@@ -28,7 +28,7 @@ bool Biblioteca::agregarMaterial(MaterialBibliografico* material) {
 
     // Agregar el material al array y aumentar el contador
     recursos[cantidadMateriales++] = material;
-    std::cout << "Material agregado correctamente.\n";
+    
     return true;
 }
 
@@ -37,15 +37,16 @@ bool Biblioteca::agregarMaterial(MaterialBibliografico* material) {
 void Biblioteca::mostrarMateriales() const {
     // Verificar si hay materiales en la biblioteca
     if (cantidadMateriales == 0) {
-        std::cout << "No hay materiales en la biblioteca.\n";
+        std::cout << "No hay Recursos en la biblioteca.\n";
         return;
     }
 
     // Mostrar la información de todos los materiales
-    std::cout << "Materiales en la biblioteca:\n";
+    std::cout << "Recursos en la biblioteca:\n";
+    cout<<endl;
     for (int i = 0; i < cantidadMateriales; ++i) {
         recursos[i]->mostrarInfo();
-        std::cout << "----------\n";
+        std::cout << "-----------------\n";
     }
 }
 MaterialBibliografico* Biblioteca::buscarMaterial(const std::string& criterio, const std::string& valor) const {

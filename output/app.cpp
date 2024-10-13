@@ -22,8 +22,6 @@ void eliminarUsuario(vector<Usuario*>& usuarios, Lectora& lectora);
 int main() {
     Lectora lectora;
     Biblioteca biblioteca;
-    cout << "Usuarios leidos desde 'usuarios.txt': " << endl;
-    
     // Leer usuarios
     vector<Usuario*> usuarios = lectora.leerUsuarios();
     
@@ -38,8 +36,6 @@ int main() {
     for (Revista* revista : revistas) {
         biblioteca.agregarMaterial(revista);  // Agregar cada revista a la biblioteca
     }
-
-    cout << "----------" << endl;
 
     menuUsuarios(usuarios, lectora, biblioteca);  // Iniciar el menú principal
 
@@ -63,6 +59,7 @@ void menuUsuarios(vector<Usuario*>& usuarios, Lectora& lectora, Biblioteca& bibl
         cout << "3. Crear Usuario\n";
         cout << "4. Eliminar Usuario\n";
         cout << "5. Salir\n";
+        cout << endl;
         cout << "Seleccione una opción: ";
         cin >> opcion;
 
@@ -125,7 +122,9 @@ Usuario* accesoUsuario(const vector<Usuario*>& usuarios) {
         string idUsuario = trim(usuario->getId());  // Limpiar espacios al comparar
 
         if (nombreUsuario == nombre && idUsuario == id) {
-            cout << "Acceso concedido. Bienvenido, " << nombre << "!\n";
+            cout <<endl;
+            cout << "Acceso concedido. Bienvenido. \n";
+            cout << endl;
             return usuario;  // Usuario encontrado, devolver el puntero a ese usuario
         }
     }
@@ -193,7 +192,7 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
     bool continuar = true;
 
     while (continuar) {
-         cout<<"Bienvenido "<<usuario.getNombre() <<" al sistema de Bilioteca Digital "<<endl;
+        cout<<"Bienvenido "<<usuario.getNombre() <<" al sistema de Bilioteca Digital "<<endl;
         cout<<endl;
         cout << "1. Agregar libro\n";
         cout << "2. Agregar revista\n";
@@ -242,6 +241,9 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 biblioteca.agregarMaterial(nuevoLibro);
                 vector<Libro*> libros = biblioteca.getLibros();
                 lectora.guardarLibros(libros);
+                cout<<endl;
+                cout<< "Libro añadido correctamente."<<endl;
+                cout<<endl;
                 break;
             }
 
@@ -272,65 +274,74 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 biblioteca.agregarMaterial(nuevaRevista);
                 vector<Revista*> revistas = biblioteca.getRevistas();
                 lectora.guardarRevistas(revistas);
+                cout<<endl;
+                cout<< "Revista añadida correctamente."<<endl;
+                cout<<endl;
                 break;
             }
             case 3: {
-    // Nueva opción: Buscar recurso
-    int subopcion;
-    cout << "Buscar recurso por:\n";
-    cout << "1. Título\n";
-    cout << "2. Autor\n";
-    cout << "Seleccione una opción: ";
-    cin >> subopcion;
+            // Nueva opción: Buscar recurso
+            int subopcion;
+            cout << "Buscar recurso por:\n";
+            cout << "1. Título\n";
+            cout << "2. Autor\n";
+            cout << "Seleccione una opción: ";
+            cin >> subopcion;
+            cout<<endl;
 
-    if (subopcion == 1) {
-        // Buscar por título
-        string titulo;
-        cout << "Ingrese el título a buscar: ";
-        cin.ignore();
-        getline(cin, titulo);
-
-        bool encontrado = false;
-        for (int i = 0; i < biblioteca.getCantidadMateriales(); ++i) {
-            MaterialBibliografico* material = biblioteca.getMaterial(i);
-            if (material->getNombre() == titulo) {
-                material->mostrarInfo();  // Mostrar la información del material encontrado
-                encontrado = true;
-            }
-        }
-
-        if (!encontrado) {
-            cout << "No se encontró material con ese título.\n";
-        }
-
-        } else if (subopcion == 2) {
-            // Buscar por autor
-            string autorBusqueda;
-            cout << "Ingrese el autor a buscar: ";
-            cin.ignore();
-            getline(cin, autorBusqueda);
-
-            bool encontrado = false;
-            for (int i = 0; i < biblioteca.getCantidadMateriales(); ++i) {
-                MaterialBibliografico* material = biblioteca.getMaterial(i);
-                if (material->getAutor() == autorBusqueda) {
-                    material->mostrarInfo();  // Mostrar la información del material encontrado
-                    encontrado = true;
+            if (subopcion == 1) {
+                // Buscar por título
+                string titulo;
+                cout << "Ingrese el título a buscar: ";
+                cin.ignore();
+                getline(cin, titulo);
+                cout<<endl;
+                bool encontrado = false;
+                for (int i = 0; i < biblioteca.getCantidadMateriales(); ++i) {
+                    MaterialBibliografico* material = biblioteca.getMaterial(i);
+                    if (material->getNombre() == titulo) {
+                        material->mostrarInfo();  // Mostrar la información del material encontrado
+                        cout<<endl;
+                        encontrado = true;
+                    }
+                   
                 }
-            }
 
-            if (!encontrado) {
-                cout << "No se encontró material con ese autor.\n";
+                if (!encontrado) {
+                    cout << "No se encontró material con ese título.\n";
+                }
+
+                } else if (subopcion == 2) {
+                    // Buscar por autor
+                    string autorBusqueda;
+                    cout << "Ingrese el autor a buscar: ";
+                    cin.ignore();
+                    getline(cin, autorBusqueda);
+                    cout<<endl;
+                    bool encontrado = false;
+                    for (int i = 0; i < biblioteca.getCantidadMateriales(); ++i) {
+                        MaterialBibliografico* material = biblioteca.getMaterial(i);
+                        if (material->getAutor() == autorBusqueda) {
+                            material->mostrarInfo();  // Mostrar la información del material encontrado
+                            cout<<endl;
+                            encontrado = true;
+                        }
+                        
+                    }
+
+                    if (!encontrado) {
+                        cout << "No se encontró material con ese autor.\n";
+                    }
+                } else {
+                    cout << "Opción no válida.\n";
+                }
+                break;
             }
-        } else {
-            cout << "Opción no válida.\n";
-        }
-        break;
-    }
 
 
             case 4: {
                 // Mostrar todos los materiales solo una vez
+                cout<<endl;
                 biblioteca.mostrarMateriales();  // Muestra todos los materiales almacenados    
                 break;
             }
