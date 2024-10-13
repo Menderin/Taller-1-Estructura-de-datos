@@ -186,9 +186,9 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
         cout<<endl;
         cout << "1. Agregar libro\n";
         cout << "2. Agregar revista\n";
-        cout << "3. Buscar material por título\n";
-        cout << "4. Buscar material por autor\n";
-        cout << "5. Mostrar todos los materiales\n";
+        cout << "3. Buscar recurso\n";
+        cout << "4. Mostrar todos los materiales\n";
+        cout << "5. Mostrar mis materiales pedidos\n";
         cout << "6. Solicitar prestamo de material\n";
         cout << "7. Devolver material\n";
         cout << "8. Salir\n";
@@ -257,41 +257,58 @@ void menu(Biblioteca& biblioteca, Usuario& usuario, Lectora& lectora) {
                 break;
             }
             case 3: {
-                // Buscar material por título
-                string titulo;
-                cout << "Ingrese el título a buscar: ";
-                cin.ignore();
-                getline(cin, titulo);
+                // Nueva opción: Buscar recurso
+                int subopcion;
+                cout << "Buscar recurso por:\n";
+                cout << "1. Título\n";
+                cout << "2. Autor\n";
+                cout << "Seleccione una opción: ";
+                cin >> subopcion;
 
-                MaterialBibliografico* encontrado = biblioteca.buscarMaterial("titulo", titulo);
-                if (encontrado) {
-                    cout << "Material encontrado:\n";
-                    encontrado->mostrarInfo();
+                if (subopcion == 1) {
+                    // Buscar por título
+                    string titulo;
+                    cout << "Ingrese el título a buscar: ";
+                    cin.ignore();
+                    getline(cin, titulo);
+
+                    MaterialBibliografico* encontrado = biblioteca.buscarMaterial("titulo", titulo);
+                    if (encontrado) {
+                        cout << "Material encontrado:\n";
+                        encontrado->mostrarInfo();
+                    } else {
+                        cout << "No se encontró material con ese título.\n";
+                    }
+                } else if (subopcion == 2) {
+                    // Buscar por autor
+                    string autorBusqueda;
+                    cout << "Ingrese el autor a buscar: ";
+                    cin.ignore();
+                    getline(cin, autorBusqueda);
+
+                    MaterialBibliografico* encontrado = biblioteca.buscarMaterial("autor", autorBusqueda);
+                    if (encontrado) {
+                        cout << "Material encontrado:\n";
+                        encontrado->mostrarInfo();
+                    } else {
+                        cout << "No se encontró material con ese autor.\n";
+                    }
                 } else {
-                    cout << "No se encontró material con ese título.\n";
+                    cout << "Opción no válida.\n";
                 }
                 break;
             }
-            case 4: {
-                // Buscar material por autor
-                string autorBusqueda;
-                cout << "Ingrese el autor a buscar: ";
-                cin.ignore();
-                getline(cin, autorBusqueda);
 
-                MaterialBibliografico* encontrado = biblioteca.buscarMaterial("autor", autorBusqueda);
-                if (encontrado) {
-                    cout << "Material encontrado:\n";
-                    encontrado->mostrarInfo();
-                } else {
-                    cout << "No se encontró material con ese autor.\n";
-                }
+            case 4: {
+                // Mostrar todos los materiales solo una vez
+                biblioteca.mostrarMateriales();  // Muestra todos los materiales almacenados    
                 break;
             }
 
             case 5: {
-                // Mostrar todos los materiales solo una vez
-                biblioteca.mostrarMateriales();  // Muestra todos los materiales almacenados    
+                // Mostrar recursos prestados por el usuario actual
+                cout << "Recursos prestados a " << usuario.getNombre() << ":\n";
+                usuario.mostrarMaterialesPrestados();
                 break;
             }
 
