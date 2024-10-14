@@ -25,6 +25,14 @@ En la linea 23 se declara una instancia de la clase Biblioteca llamada bibliotec
 
 En la linea 25, 26, 27 se crean vectores (con punteros) para guardar los usuarios, los libros y las revistas, a su vez se llama a lectora que leera y creara los usuarios, libros y revistas
 
+Los usarios se crean con los atributos nombre, id
+
+Los libros se crean con los atributos nombre, ISBM, autor, prestado, fechaPublicacion, resumen y usuario (guarda el id del usuario que le pertenece en caso de estar prestado a ese usuario)
+
+Las revistas se crean con los atributos nombre, ISBM, autor, prestado, numeroEdicion, mesPublicacion y usuario (guarda el id del usuario que le pertenece en caso de estar prestado a ese usuario)
+
+Tanto libro como revista tienen el atributo prestado y usuario, los cuales se inician como "No" y "null" por defecto, "No" indicando que no esta prestado y "null" indicando que su usuario es nulo o no le pertenece a ningun usuario
+
 En la linea 29 se recorre el vector de libros para añadirlos al array estatico de recursos usando un metodo de biblioteca
 
 En la linea 33 se recorre el vector de revistas para añadirlos al array estatico de recursos usando un metodo de biblioteca
