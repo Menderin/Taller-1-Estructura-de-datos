@@ -23,7 +23,7 @@ En la linea 22 se declara una instancia de la clase Lectora llamada lectora
 
 En la linea 23 se declara una instancia de la clase Biblioteca llamada biblioteca
 
-En la linea 25, 26, 27 se crean vectores (con punteros) para guardar los usuarios, los libros y las revistas, a su vez se llama a lectora que leera los usuarios, libros y revistas
+En la linea 25, 26, 27 se crean vectores (con punteros) para guardar los usuarios, los libros y las revistas, a su vez se llama a lectora que leera y creara los usuarios, libros y revistas
 
 En la linea 29 se recorre el vector de libros para añadirlos al array estatico de recursos usando un metodo de biblioteca
 
